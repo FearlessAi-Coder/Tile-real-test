@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tilewise – Premium tiles, previewed in your room</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1020;--card:#101a30;--ink:#eaf0fb;--mute:#8f9db8;--line:#1f2b47;--g:#b89a5e;--g2:#e8edf7;--gi:#0a1020;--b:#2f56cc;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f5f9;--card:#fff;--ink:#0d1530;--mute:#5a6683;--line:#dde3ee;--g:#8f7438;--g2:#0d1530;--gi:#fff;--b:#2f56cc;color-scheme:light}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Jost,system-ui,sans-serif}
+main{max-width:1120px;margin:0 auto;padding:18px 16px 110px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;margin:0}
+h1{font-size:clamp(36px,7vw,60px);line-height:1;letter-spacing:.01em;margin:6px 0;color:var(--ink)}
+h2{font-size:30px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sub,.mute{color:var(--mute)}
+.ann{background:#080b0f;color:#aab3bf;text-align:center;font-size:13px;font-weight:500;padding:8px 12px}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0;font-size:13px;color:var(--mute)}
+.trust div{border:1px solid var(--line);padding:8px 10px}
+.trust b{color:var(--g);display:block}
+.ann b{color:#c9a24a}
+.promo{background:#121a24;border:1px solid var(--line);border-left:3px solid var(--g);color:#eef1f4;padding:22px;margin:0 0 18px;display:grid;gap:6px}
+.promo h2{margin:0;padding:0;border:0;font-size:clamp(26px,5vw,38px);color:#fff}.promo p{margin:0;max-width:46ch;opacity:.85}.promo small{opacity:.7}
+.btn{font:inherit;font-weight:600;background:var(--b);color:#fff;border:0;padding:12px 16px;cursor:pointer;width:100%;letter-spacing:.02em}
+.btn.o{background:none;border:1px solid var(--line);color:var(--ink)}
+.eye{color:var(--g);letter-spacing:.3em;text-transform:uppercase;font-size:11px;font-weight:500;margin-top:8px}
+.promo .btn{width:auto;justify-self:start;margin-top:8px}
+.viz{display:grid;gap:16px}
+@media(min-width:860px){.viz{grid-template-columns:1.2fr 1fr;align-items:start}}
+#cv{width:100%;aspect-ratio:4/3;display:block;border:1px solid var(--line)}
+.panel{background:var(--card);border:1px solid var(--line);padding:16px;display:grid;gap:12px}
+.panel h3{font-size:28px;color:var(--g2)}
+label{display:grid;gap:4px;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:8px 10px;width:100%}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button,.chip{font:inherit;font-size:13px;color:var(--ink);background:none;border:1px solid var(--line);padding:6px 12px;cursor:pointer}
+.seg button.on,.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sw{display:flex;gap:8px;flex-wrap:wrap}.sw button{width:30px;height:30px;border:2px solid var(--line);cursor:pointer;border-radius:50%}.sw button.on{outline:2px solid var(--g);outline-offset:2px}
+.chk{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}.chk label{display:flex;align-items:center;gap:6px;text-transform:none;letter-spacing:0;color:var(--ink);font-size:13px}.chk input{width:auto}
+.res{background:var(--bg);border:1px solid var(--line);padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.res b{display:block;font:700 28px 'Cormorant Garamond',serif;color:var(--g2)}.res span{font-size:11px;color:var(--mute);text-transform:uppercase}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.acts .full{grid-column:1/-1}
+.sug{font-size:13px;display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}.sug p{margin:0;color:var(--mute)}
+.stars{color:var(--g)}.low{color:#e9805a}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0}.chip{white-space:nowrap;border-radius:99px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);padding:8px}
+.card.on{outline:2px solid var(--g)}
+.sel{font:inherit;color:var(--ink);text-align:left;background:none;border:0;padding:0;cursor:pointer;display:grid;gap:2px;width:100%}
+.sel canvas{width:100%;aspect-ratio:1;display:block;margin-bottom:6px}
+.sel span{font-size:13px;color:var(--mute)}.sel s{opacity:.6}
+.bd{position:absolute;left:8px;top:8px;background:var(--g);color:var(--gi);font-size:10px;font-weight:600;padding:2px 7px;text-transform:uppercase;z-index:1}
+.hrt{position:absolute;right:8px;top:8px;background:rgba(0,0,0,.5);color:#fff;border:0;border-radius:50%;width:30px;height:30px;cursor:pointer;z-index:1}.hrt.on{color:#ff5a6e}
+.ad{font:inherit;color:var(--ink);text-align:left;border:1px dashed var(--g);background:var(--card);padding:12px;cursor:pointer;display:grid;gap:4px;align-content:center}.ad i{font-style:normal;color:var(--g);font-weight:600}
+.rv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.rv blockquote{margin:0;border:1px solid var(--line);padding:14px;background:var(--card)}
+details{border-bottom:1px solid var(--line);padding:10px 0}summary{cursor:pointer;font-weight:500}details p{color:var(--mute);margin:6px 0 0}
+.news{border:1px solid var(--line);padding:20px;display:grid;gap:10px;margin-top:40px}.news .row{grid-template-columns:1fr auto}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mute);font-size:13px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--g2);outline-offset:2px}
+#fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));font:inherit;font-weight:600;background:var(--ink);color:var(--bg);border:0;padding:14px 22px;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.4);z-index:5}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--card);border-left:1px solid var(--line);z-index:9;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+#drawer.open{transform:none}
+#items{flex:1;overflow:auto;display:grid;gap:10px;align-content:start;margin:10px 0}
+.it{display:grid;grid-template-columns:1fr auto;gap:2px;border-bottom:1px solid var(--line);padding-bottom:8px;font-size:14px}.it small{color:var(--mute);grid-column:1/-1}
+.q{display:flex;gap:8px;align-items:center}.q button{font:inherit;min-width:28px;height:28px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.sumr{display:flex;justify-content:space-between;font-size:14px;color:var(--mute)}.sumr.t{font:700 24px 'Cormorant Garamond',serif;color:var(--g2);margin-top:4px}
+.barw{height:5px;background:var(--bg);margin:4px 0 8px}#bar{height:100%;width:0;background:var(--g);transition:width .3s}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s;z-index:12;max-width:90%}#toast.on{opacity:1}
+#quote{display:none}
+@media print{body>*:not(#quote){display:none!important}#quote{display:block;color:#000;background:#fff;padding:24px;font:14px/1.6 Georgia,serif}}
+@media(prefers-reduced-motion:reduce){#drawer,#toast,#bar{transition:none}}
+</style></head>
+<body>
+<div class="ann">Free delivery over $500 · Code <b>TILE15</b> = 15% off · Sale ends in <b id="cd"></b></div>
+<main>
+<div class="eye">Premium tile studio</div>
+<h1>Tilewise</h1>
+<p class="sub">Premium tiles, previewed in your own room. Measure, compare, save and order samples.</p>
+<div class="trust"><div><b>Free samples</b>On orders over $200</div><div><b>25-year warranty</b>On all porcelain</div><div><b>30-day returns</b>Unopened boxes</div><div><b>Expert installers</b>Book at checkout</div></div>
+<div class="promo"><small>Sponsored · Marmo Italia</small><h2>The Carrara Collection</h2><p>Hand-finished Italian marble. Free sample with any order this month.</p><button class="btn" data-i="0">See it in your room</button></div>
+
+<section class="viz">
+ <canvas id="cv" aria-label="Room floor preview"></canvas>
+ <div class="panel">
+  <h3 id="tn"></h3>
+  <div id="meta"></div>
+  <p class="mute" id="td" style="margin:0"></p>
+  <div><label>Room presets</label><div class="seg" id="pre"></div></div>
+  <div class="row"><label>Tile size<select id="sz"></select></label><label>Units<select id="un"><option value="m">Metres</option><option value="ft">Feet</option></select></label></div>
+  <div><label>Layout</label><div class="seg" id="lay"></div></div>
+  <div class="row"><label><span id="lw">Width (m)</span><input id="w" type="number" min="1" max="100" step="0.1"></label><label><span id="ll">Length (m)</span><input id="l" type="number" min="1" max="100" step="0.1"></label></div>
+  <div class="row"><label>Grout gap (mm)<input id="g" type="number" min="1" max="10" value="3"></label><label>Extra for cuts<select id="ws"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></label></div>
+  <div class="row"><div><label>Grout colour</label><div class="sw" id="gs"></div></div><div><label>Wall colour</label><div class="sw" id="sw"></div></div></div>
+  <label>Lighting<input id="lit" type="range" min="30" max="100" value="100"></label>
+  <div class="chk"><label><input type="checkbox" id="cut"> Island / tub (1.0×0.6 m)</label><label><input type="checkbox" id="cmp"> Compare with pair</label><label><input type="checkbox" id="inst"> Add installation</label><label><input type="checkbox" id="ls"> L-shaped room</label><label><input type="checkbox" id="acc"> Adhesive &amp; grout</label></div>
+  <div class="res"><div><b id="r1"></b><span>Area</span></div><div><b id="r2"></b><span>Tiles</span></div><div><b id="r3"></b><span>Boxes</span></div></div>
+  <div class="sumr"><span id="mat"></span><span id="ins"></span></div>
+  <div class="sumr"><span id="skt"></span><span id="acx"></span></div>
+  <div class="acts"><button class="btn full" id="add"></button><button class="btn o" id="smp">Order sample $4.99</button><button class="btn o" id="save">Save design</button><button class="btn o" id="share">Copy quote</button><button class="btn o" id="prt">Print quote</button></div>
+  <div class="sug" id="sug"></div>
+ </div>
+</section>
+
+<div id="savedw" hidden><h2>Saved designs</h2><div class="chips" id="saved"></div></div>
+
+<h2>The collection</h2>
+<div class="tools"><input id="q" placeholder="Search tiles…" aria-label="Search"><select id="so" aria-label="Sort"><option value="">Featured</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="rt">Top rated</option></select><select id="mp" aria-label="Max price"><option value="999">Any price</option><option value="35">Under $35/m²</option><option value="50">Under $50/m²</option><option value="60">Under $60/m²</option></select></div>
+<div class="chips" id="chips"></div>
+<div class="mute" id="rec" style="font-size:13px;margin:4px 0 10px"></div>
+<div class="grid" id="grid"></div>
+
+<h2>Loved by homeowners</h2>
+<div class="rv"><blockquote>“The preview matched our floor perfectly. Ordered the exact boxes, zero waste.”<br><b class="stars">★★★★★</b> Amira, Dubai</blockquote><blockquote>“Compare mode helped us choose in ten minutes. Premium quality.”<br><b class="stars">★★★★★</b> Daniel, London</blockquote><blockquote>“Samples arrived in two days. Install team was excellent.”<br><b class="stars">★★★★☆</b> Sofia, Madrid</blockquote></div>
+
+<h2>Questions</h2>
+<details><summary>How much extra should I order?</summary><p>We suggest 10% for cuts and breakage, 15% for diagonal or small rooms.</p></details>
+<details><summary>Can I return unopened boxes?</summary><p>Yes, within 30 days. Keep a box from the same batch for future repairs.</p></details>
+<details><summary>Do you deliver and install?</summary><p>Delivery is free over $500. Tick “Add installation” for a fitted quote.</p></details>
+<details><summary>How do I care for my tiles?</summary><p>Each tile page lists care tips. Most porcelain needs only a damp mop.</p></details>
+
+<div class="news"><h3>Join the Gold Club</h3><p class="mute" style="margin:0">Get 10% off your first order and early access to sales.</p><div class="row"><input id="em" type="email" placeholder="you@email.com" aria-label="Email"><button class="btn" id="news" style="width:auto">Join</button></div></div>
+<footer><span>© Tilewise · Demo store</span><button class="chip" id="chat">Chat with us</button></footer>
+</main>
+
+<button id="fab">Cart (<span id="cnt">0</span>)</button>
+<aside id="drawer" aria-label="Cart">
+ <div style="display:flex;justify-content:space-between;align-items:center"><h3>Your cart</h3><button class="chip" id="close">Close</button></div>
+ <div id="items"></div>
+ <div id="xs"></div>
+ <div class="mute" style="font-size:13px" id="free"></div><div class="barw"><div id="bar"></div></div>
+ <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:8px"><input id="cc" placeholder="Promo code (TILE15)" aria-label="Promo code"><button class="chip" id="apply">Apply</button></div>
+ <div id="sum"></div>
+ <button class="btn" id="co" style="margin-top:10px">Check out</button>
+</aside>
+<div id="quote"></div><div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const T=[
+{n:'Carrara Marble',type:'marble',c:'#ebebe8',c2:'#8d949b',p:68,was:84,sz:[[60,60],[60,30]],rooms:['Bathroom','Living room','Kitchen'],walls:['#e6e2da','#c9d3d6','#2f3b40'],pair:1,d:'Soft grey veining. Bright, calm and luxurious.',r:4.8,rv:212,b:'Bestseller',kg:22,st:34},
+{n:'Charcoal Slate',type:'stone',c:'#3b4045',c2:'#222',p:42,was:0,sz:[[60,60],[30,30]],rooms:['Kitchen','Living room','Outdoor'],walls:['#f3efe6','#9db8a6','#e6e2da'],pair:0,d:'Dark and grippy. Hides dirt and makes light walls pop.',r:4.6,rv:98,b:'',kg:24,st:60},
+{n:'Oak Plank',type:'wood',c:'#b58a5b',c2:'#6b4a2b',p:36,was:45,sz:[[90,15],[120,20]],rooms:['Living room','Bedroom'],walls:['#f3efe6','#c9d3d6','#9db8a6'],pair:6,d:'Warm wood look in a tile. Water-resistant, easy to clean.',r:4.7,rv:305,b:'Sale',kg:19,st:12},
+{n:'Terracotta',type:'stone',c:'#c4623b',c2:'#8a3a1c',p:29,was:0,sz:[[30,30],[20,20]],rooms:['Kitchen','Outdoor'],walls:['#f3efe6','#9db8a6','#2f3b40'],pair:7,d:'Earthy and sun-baked. Great for patios and rustic kitchens.',r:4.4,rv:64,b:'',kg:26,st:80},
+{n:'Seafoam Zellige',type:'gloss',c:'#7fb5a8',c2:'#5b9486',p:54,was:0,sz:[[15,15],[10,10]],rooms:['Bathroom','Kitchen'],walls:['#f3efe6','#e6e2da','#2f3b40'],pair:0,d:'Glossy handmade look. Light bounces off every tile.',r:4.9,rv:41,b:'New',kg:18,st:9},
+{n:'Checker Classic',type:'checker',c:'#f2f2f2',c2:'#1c1c1c',p:38,was:0,sz:[[30,30],[20,20]],rooms:['Kitchen','Bathroom'],walls:['#d9a79a','#9db8a6','#2f3b40'],pair:7,d:'Black and white. Bold, retro and always in style.',r:4.5,rv:130,b:'',kg:20,st:45},
+{n:'Terrazzo Chip',type:'terrazzo',c:'#e4dfd6',c2:'#c9c2b6',chips:['#c4623b','#3b4045','#7fb5a8','#b58a5b','#fff'],p:52,was:0,sz:[[60,60],[40,40]],rooms:['Living room','Kitchen','Bedroom'],walls:['#e6e2da','#d9a79a','#c9d3d6'],pair:7,d:'Speckled stone chips. Playful but neutral.',r:4.6,rv:77,b:'Premium',kg:23,st:28},
+{n:'Concrete Grey',type:'stone',c:'#9a9d9e',c2:'#777',p:31,was:0,sz:[[60,60],[30,30]],rooms:['Kitchen','Living room','Bedroom','Bathroom','Outdoor'],walls:['#f3efe6','#d9a79a','#9db8a6'],pair:2,d:'Modern and quiet. Goes with almost everything.',r:4.3,rv:150,b:'',kg:25,st:100}];
+const CARE={marble:'Seal yearly. Use pH-neutral cleaner, no vinegar.',stone:'Damp mop. Reseal unglazed stone every 2 years.',wood:'Damp mop only. Avoid steam cleaners.',gloss:'Soft cloth and mild soap. Avoid abrasives.',checker:'Mop weekly. Colour-safe cleaner keeps whites bright.',terrazzo:'Neutral cleaner. Polish yearly for shine.'};
+const ROOMS=['All','Favorites','Kitchen','Bathroom','Living room','Bedroom','Outdoor'],P={Bathroom:[2.5,2.2],Kitchen:[4,3.5],'Living room':[5.5,4.5],Bedroom:[4,3.5],Outdoor:[6,4]};
+const WALLS=['#16213a','#e6e2da','#f3efe6','#c9d3d6','#9db8a6','#d9a79a'],GR=['#b4b8b9','#f2f2f2','#3a3a3a','#c9a96a'],LAYS=['Straight','Brick','Third','Diagonal'],CODES={TILE15:.15,GOLD10:.1};
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let S={t:0,sz:0,lay:'Straight',w:4,l:3.5,g:3,gc:GR[0],wall:WALLS[0],room:'All',u:'m',cut:0,cmp:0,inst:0,ls:0,acc:0,mp:999,lit:100,waste:10,q:'',so:''},cart=ld('tw-c',[]),favs=ld('tw-f',[]),saved=ld('tw-d',[]),seen=ld('tw-s',[]),rate=0;
+const rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)),sh=(h,d)=>'rgb('+rgb(h).map(v=>Math.max(0,Math.min(255,Math.round(v+d)))).join()+')';
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function tile(x,t,px,py,w,h,i,j){
+ const r=rng((i*73856093)^(j*19349663)^7);let b=t.c;if(t.type==='checker'&&(i+j)%2)b=t.c2;
+ x.fillStyle=sh(b,(r()-.5)*(t.type==='checker'?8:22));x.fillRect(px,py,w,h);x.save();x.beginPath();x.rect(px,py,w,h);x.clip();
+ if(t.type==='marble'){x.strokeStyle=t.c2;x.globalAlpha=.5;x.lineWidth=Math.max(.6,w/70);for(let k=0;k<2;k++){x.beginPath();x.moveTo(px+r()*w,py);x.bezierCurveTo(px+r()*w,py+h*.3,px+r()*w,py+h*.6,px+r()*w,py+h);x.stroke()}}
+ else if(t.type==='wood'){x.strokeStyle='#000';x.globalAlpha=.13;for(let k=1;k<5;k++){const y=py+h*k/5+(r()-.5)*h*.1;x.beginPath();x.moveTo(px,y);x.quadraticCurveTo(px+w/2,y+(r()-.5)*h*.2,px+w,y);x.stroke()}}
+ else if(t.type==='terrazzo'){for(let k=0;k<10;k++){x.fillStyle=t.chips[k%5];x.save();x.translate(px+r()*w,py+r()*h);x.rotate(r()*6);const s=Math.min(w,h)*(.03+r()*.05);x.fillRect(-s,-s*.7,s*2,s*1.4);x.restore()}}
+ else if(t.type==='stone'){x.fillStyle='#fff';for(let k=0;k<14;k++){x.globalAlpha=.05+r()*.07;x.beginPath();x.arc(px+r()*w,py+r()*h,Math.min(w,h)*r()*.07,0,7);x.fill()}}
+ else if(t.type==='gloss'){const g=x.createLinearGradient(px,py,px+w,py+h);g.addColorStop(0,'rgba(255,255,255,.4)');g.addColorStop(.5,'rgba(255,255,255,0)');g.addColorStop(1,'rgba(0,0,0,.14)');x.fillStyle=g;x.fillRect(px,py,w,h)}
+ x.restore();
+}
+function floor(x,ox,oy,W,H,t,sz,lay,g,s,gc){
+ const[tw,th]=t.sz[sz],gp=Math.max(g/10*s,1.2),w=tw*s,h=th*s;
+ x.save();x.beginPath();x.rect(ox,oy,W,H);x.clip();x.fillStyle=gc;x.fillRect(ox,oy,W,H);x.translate(ox,oy);let e=[0,W,0,H];
+ if(lay==='Diagonal'){x.translate(W/2,H/2);x.rotate(Math.PI/4);const D=Math.hypot(W,H)/2;e=[-D,D,-D,D]}
+ for(let y=e[2],j=0;y<e[3];y+=h+gp,j++){const off=lay==='Brick'?(j%2)*(w+gp)/2:lay==='Third'?(j%3)*(w+gp)/3:0;for(let px=e[0]-off,i=0;px<e[1];px+=w+gp,i++)tile(x,t,px,y,w,h,i,j)}
+ x.restore();
+}
+function draw(){
+ const c=$('#cv'),d=Math.min(devicePixelRatio||1,2),W=c.clientWidth,H=c.clientHeight;if(!W)return;
+ c.width=W*d;c.height=H*d;const x=c.getContext('2d');x.scale(d,d);x.fillStyle=S.wall;x.fillRect(0,0,W,H);
+ const m=36,s=Math.min((W-2*m)/(S.w*100),(H-2*m)/(S.l*100)),fw=S.w*100*s,fh=S.l*100*s,ox=(W-fw)/2,oy=(H-fh)/2,t=T[S.t];
+ x.save();x.shadowColor='rgba(0,0,0,.5)';x.shadowBlur=18;x.fillStyle='#000';x.fillRect(ox,oy,fw,fh);x.restore();
+ if(S.cmp){const b=T[t.pair];floor(x,ox,oy,fw/2,fh,t,S.sz,S.lay,S.g,s,S.gc);floor(x,ox+fw/2,oy,fw/2,fh,b,0,S.lay,S.g,s,S.gc);x.fillStyle='#b89a5e';x.fillRect(ox+fw/2-1,oy,2,fh)}
+ else floor(x,ox,oy,fw,fh,t,S.sz,S.lay,S.g,s,S.gc);
+ if(S.cut){const cw=100*s,ch=60*s;x.fillStyle='#16213a';x.fillRect(ox+fw/2-cw/2,oy+fh/2-ch/2,cw,ch);x.strokeStyle='#b89a5e';x.strokeRect(ox+fw/2-cw/2,oy+fh/2-ch/2,cw,ch)}
+ x.fillStyle='rgba(0,0,0,'+(1-S.lit/100)*.65+')';x.fillRect(ox,oy,fw,fh);if(S.ls){x.fillStyle=S.wall;x.fillRect(ox+fw*.65,oy,fw*.35+1,fh*.4)}
+ x.fillStyle=rgb(S.wall).reduce((a,v)=>a+v,0)/3>130?'#16262b':'#fff';x.font='600 12px system-ui,sans-serif';x.textAlign='center';
+ const f=S.u==='ft'?3.281:1,u=S.u;x.fillText((S.w*f).toFixed(1)+' '+u,W/2,oy-10);x.save();x.translate(ox-10,H/2);x.rotate(-Math.PI/2);x.fillText((S.l*f).toFixed(1)+' '+u,0,0);x.restore();
+}
+function calc(){
+ const t=T[S.t],[tw,th]=t.sz[S.sz],ta=tw*th/1e4,per=Math.max(1,Math.round(1.2/ta)),cov=per*ta,area=Math.max(.1,S.w*S.l*(S.ls?.86:1)-(S.cut?.6:0)),need=area*(1+S.waste/100);
+ return{t,ta,per,cov,area,tiles:Math.ceil(need/ta),boxes:Math.ceil(need/cov),bp:cov*t.p,size:tw+'×'+th+' cm',adh:Math.ceil(area/4),grt:Math.ceil(area/6)};
+}
+const usd=v=>'$'+v.toFixed(2),stars=r=>'★'.repeat(Math.round(r))+'☆'.repeat(5-Math.round(r));
+function setIn(){const f=S.u==='ft'?3.281:1;$('#w').value=+(S.w*f).toFixed(1);$('#l').value=+(S.l*f).toFixed(1);$('#lw').textContent='Width ('+S.u+')';$('#ll').textContent='Length ('+S.u+')'}
+function ui(){
+ const t=T[S.t],k=calc(),pr=T[t.pair];
+ $('#tn').textContent=t.n;
+ $('#meta').innerHTML=`<span class="stars">${stars(t.r)}</span> ${t.r} (${t.rv}) · ${t.was?'<s class="mute">$'+t.was+'</s> ':''}<b>$${t.p}</b>/m²${t.st<15?` · <span class="low">Only ${t.st} boxes left</span>`:''}`;
+ $('#td').textContent=t.d;
+ $('#pre').innerHTML=Object.keys(P).map(r=>`<button data-p="${r}">${r}</button>`).join('');
+ $('#sz').innerHTML=t.sz.map((z,i)=>`<option value="${i}"${i===S.sz?' selected':''}>${z[0]}×${z[1]} cm</option>`).join('');
+ $('#lay').innerHTML=LAYS.map(l=>`<button data-l="${l}" class="${l===S.lay?'on':''}">${l}</button>`).join('');
+ $('#sw').innerHTML=WALLS.map(c=>`<button data-c="${c}" style="background:${c}" class="${c===S.wall?'on':''}" aria-label="Wall ${c}"></button>`).join('');
+ $('#gs').innerHTML=GR.map(c=>`<button data-g="${c}" style="background:${c}" class="${c===S.gc?'on':''}" aria-label="Grout ${c}"></button>`).join('');
+ $('#r1').textContent=k.area.toFixed(1)+' m²';$('#r2').textContent=k.tiles;$('#r3').textContent=k.boxes;
+ const mat=k.boxes*k.bp,ins=S.inst?k.area*35:0;
+ $('#mat').textContent='Materials '+usd(mat);$('#ins').textContent=S.inst?'Install '+usd(ins):'';const ac=S.acc?k.adh*18+k.grt*12:0;$('#skt').textContent='Skirting needed: '+(2*(S.w+S.l)).toFixed(1)+' m';$('#acx').textContent=S.acc?k.adh+' adhesive, '+k.grt+' grout · '+usd(ac):'';
+ $('#add').textContent='Add '+k.boxes+' boxes · '+usd(mat+ins+ac);
+ $('#sug').innerHTML=`<p>Works well in: ${t.rooms.map(r=>`<b>${r}</b>`).join(', ')}</p><p>Wall colours that suit it:</p><div class="sw">${t.walls.map(c=>`<button data-c="${c}" style="background:${c}" aria-label="Wall ${c}"></button>`).join('')}</div><p>Pairs with: <button class="chip" data-i="${t.pair}">${pr.n}</button></p><p>Care: ${CARE[t.type]}</p><p>Each box: ${k.cov.toFixed(2)} m², ${k.per} tiles, ${(k.cov*t.kg).toFixed(0)} kg · ${usd(k.bp)}</p>`;
+ draw();
+}
+function list(){
+ let a=T.map((t,i)=>({t,i})).filter(({t,i})=>(S.room==='All'||(S.room==='Favorites'?favs.includes(i):t.rooms.includes(S.room)))&&t.p<=S.mp&&t.n.toLowerCase().includes(S.q.toLowerCase()));
+ if(S.so==='pa')a.sort((x,y)=>x.t.p-y.t.p);if(S.so==='pd')a.sort((x,y)=>y.t.p-x.t.p);if(S.so==='rt')a.sort((x,y)=>y.t.r-x.t.r);return a;
+}
+function cat(){
+ $('#rec').innerHTML=seen.length?'Recently viewed: '+seen.map(i=>`<button class="chip" data-i="${i}">${T[i].n}</button>`).join(' '):'';
+ $('#chips').innerHTML=ROOMS.map(r=>`<button class="chip${r===S.room?' on':''}" data-r="${r}">${r==='Favorites'?'♥ ':''}${r}</button>`).join('');
+ $('#grid').innerHTML=list().map(({t,i})=>`<div class="card${i===S.t?' on':''}">${t.b?`<span class="bd">${t.b}</span>`:''}<button class="hrt${favs.includes(i)?' on':''}" data-f="${i}" aria-label="Favorite ${t.n}">♥</button><button class="sel" data-i="${i}"><canvas width="200" height="200"></canvas><b>${t.n}</b><span class="stars">${stars(t.r)} <small class="mute">(${t.rv})</small></span><span>${t.was?'<s>$'+t.was+'</s> ':''}<b style="color:var(--g2)">$${t.p}</b>/m²</span></button></div>`).join('')+(!list().length?'<p class="mute">No tiles match. Try another filter.</p>':'')+(S.room==='All'&&!S.q?'<button class="ad" data-i="2"><small class="mute">Sponsored</small><b>Oak Plank Week</b><span>20% off wood-look tiles. Ends Sunday.</span><i>Shop now →</i></button>':'');
+ $$('.sel').forEach(b=>{const t=T[b.dataset.i];floor(b.firstChild.getContext('2d'),0,0,200,200,t,0,t.type==='wood'?'Brick':'Straight',3,200/(Math.max(...t.sz[0])*2.2),GR[0])});
+}
+function sav(){$('#savedw').hidden=!saved.length;$('#saved').innerHTML=saved.map((d,i)=>`<button class="chip" data-sv="${i}">${T[d.t].n} · ${d.w}×${d.l} m</button>`).join('')}
+function pick(i){seen=[+i,...seen.filter(z=>z!==+i)].slice(0,4);sv('tw-s',seen);S.t=+i;S.sz=0;S.lay=T[i].type==='wood'?'Brick':'Straight';ui();cat();$('#cv').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400)}
+function addC(key,n,size,q,bp,kg){const c=cart.find(z=>z.k===key);if(c)c.q+=q;else cart.push({k:key,n,size,q,bp,kg});sv('tw-c',cart);rc()}
+function rc(){
+ $('#cnt').textContent=cart.reduce((a,c)=>a+c.q,0);
+ $('#items').innerHTML=cart.length?cart.map(c=>`<div class="it"><b>${c.n}</b><span>${usd(c.q*c.bp)}</span><small>${c.size} · ${usd(c.bp)} each</small><div class="q"><button data-a="-" data-k="${c.k}">−</button>${c.q}<button data-a="+" data-k="${c.k}">+</button><button data-a="x" data-k="${c.k}">Remove</button></div></div>`).join(''):'<p class="mute">Your cart is empty. Pick a tile and add the boxes you need.</p>';
+ const sub=cart.reduce((a,c)=>a+c.q*c.bp,0),disc=sub*rate,net=sub-disc,del=!cart.length||net>=500?0:29,tax=(net+del)*.08,wt=cart.reduce((a,c)=>a+(c.kg||0)*c.q,0),tot=net+del+tax,t=T[S.t];
+ const dd=new Date(Date.now()+4*864e5).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});$('#free').textContent=(net>=500?'You have free delivery':'Add '+usd(500-net)+' more for free delivery')+' · Est. delivery '+dd;$('#bar').style.width=Math.min(100,net/5)+'%';
+ $('#xs').innerHTML=cart.length?`<p class="mute" style="font-size:13px;margin:0 0 6px">Customers also bought: <button class="chip" data-s="${t.pair}">+ ${T[t.pair].n} sample</button></p>`:'';
+ $('#sum').innerHTML=`<div class="sumr"><span>Subtotal</span><span>${usd(sub)}</span></div>${rate?`<div class="sumr"><span>Discount</span><span>−${usd(disc)}</span></div>`:''}<div class="sumr"><span>Delivery${wt>500?' (pallet, '+Math.round(wt)+' kg)':''}</span><span>${del?usd(del):'Free'}</span></div><div class="sumr"><span>Tax (8% est.)</span><span>${usd(tax)}</span></div><div class="sumr t"><span>Total</span><span>${usd(tot)}</span></div><div class="sumr"><span>or 4 payments of</span><span>${usd(tot/4)}</span></div>`;
+}
+function summary(){const k=calc();return `Tilewise quote\n${k.t.n} ${k.size}, ${S.lay} layout\nRoom ${S.w} × ${S.l} m (${k.area.toFixed(1)} m²), ${S.waste}% extra\n${k.tiles} tiles · ${k.boxes} boxes · ${usd(k.boxes*k.bp+(S.inst?k.area*35:0))}${S.inst?' incl. installation':''}`}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset,id=b.id;
+ if(d.i!==undefined)pick(d.i);
+ else if(d.f!==undefined){const i=+d.f;favs=favs.includes(i)?favs.filter(z=>z!==i):[...favs,i];sv('tw-f',favs);cat()}
+ else if(d.r){S.room=d.r;cat()}
+ else if(d.l){S.lay=d.l;ui()}
+ else if(d.c){S.wall=d.c;ui()}
+ else if(d.g){S.gc=d.g;ui()}
+ else if(d.p){[S.w,S.l]=P[d.p];setIn();ui()}
+ else if(d.sv!==undefined){S={...S,...saved[d.sv]};setIn();$('#g').value=S.g;ui();cat();toast('Design loaded')}
+ else if(d.s!==undefined){const t=T[d.s];addC('S'+t.n,t.n+' sample','10×10 cm',1,4.99,0);toast('Sample added')}
+ else if(d.a){const c=cart.find(z=>z.k===d.k);d.a==='+'?c.q++:d.a==='-'?c.q--:c.q=0;cart=cart.filter(z=>z.q>0);sv('tw-c',cart);rc()}
+ else if(id==='add'){const k=calc();addC(k.t.n+k.size,k.t.n,k.size,k.boxes,k.bp,k.cov*k.t.kg);if(S.acc){addC('ADH','Tile adhesive 20 kg','bag',k.adh,18,20);addC('GRT','Grout 5 kg','bag',k.grt,12,5)}toast(k.boxes+' boxes added')}
+ else if(id==='smp'){const t=T[S.t];addC('S'+t.n,t.n+' sample','10×10 cm',1,4.99,0);toast('Sample added')}
+ else if(id==='save'){const{t,sz,lay,w,l,g,gc,wall,cut,waste}=S;saved=[{t,sz,lay,w,l,g,gc,wall,cut,waste},...saved].slice(0,6);sv('tw-d',saved);sav();toast('Design saved')}
+ else if(id==='share'){try{navigator.clipboard.writeText(summary()).then(()=>toast('Quote copied'),()=>toast('Copy not available here'))}catch(x){toast('Copy not available here')}}
+ else if(id==='prt'){$('#quote').innerHTML='<h2>'+summary().replace(/\n/g,'<br>')+'</h2><p>Estimate only. Prices exclude tax and delivery.</p>';window.print()}
+ else if(id==='apply'){const c=CODES[$('#cc').value.trim().toUpperCase()];rate=c||0;toast(c?Math.round(c*100)+'% off applied':'Code not valid');rc()}
+ else if(id==='news'){const v=$('#em').value;if(v.includes('@')){rate=Math.max(rate,.1);rc();toast('Welcome! GOLD10 applied to your cart')}else toast('Enter a valid email')}
+ else if(id==='fab')$('#drawer').classList.add('open');
+ else if(id==='close')$('#drawer').classList.remove('open');
+ else if(id==='chat')toast('Chat is a demo. Connect your support tool.');
+ else if(id==='co')toast(cart.length?'Demo only. Connect a payment provider to go live.':'Add a tile first');
+});
+const num=(id,k)=>$(id).addEventListener('input',e=>{const v=parseFloat(e.target.value),m=v/(S.u==='ft'?3.281:1);if(m>=1&&m<=30){S[k]=m;ui()}});
+num('#w','w');num('#l','l');
+$('#g').oninput=e=>{const v=+e.target.value;if(v>=1&&v<=10){S.g=v;ui()}};
+$('#ws').onchange=e=>{S.waste=+e.target.value;ui()};$('#sz').onchange=e=>{S.sz=+e.target.value;ui()};
+$('#un').onchange=e=>{S.u=e.target.value;setIn();draw()};$('#lit').oninput=e=>{S.lit=+e.target.value;draw()};
+['cut','cmp','inst','ls','acc'].forEach(k=>$('#'+k).onchange=e=>{S[k]=e.target.checked?1:0;ui()});
+$('#q').oninput=e=>{S.q=e.target.value;cat()};$('#mp').onchange=e=>{S.mp=+e.target.value;cat()};$('#so').onchange=e=>{S.so=e.target.value;cat()};
+function tick(){const n=new Date(),e=new Date(n);e.setHours(23,59,59,999);const s=Math.floor((e-n)/1000),p=v=>String(v).padStart(2,'0');$('#cd').textContent=p(Math.floor(s/3600))+':'+p(Math.floor(s%3600/60))+':'+p(s%60)}
+addEventListener('keydown',e=>{if(e.key==='Escape')$('#drawer').classList.remove('open')});addEventListener('resize',draw);tick();setInterval(tick,1000);setIn();rc();ui();cat();sav();
+</script></body></html>
